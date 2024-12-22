@@ -16,7 +16,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    
+     
     char[] nom;
     
     public static void main(String[] args) throws FileNotFoundException, IOException {
