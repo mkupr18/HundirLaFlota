@@ -9,7 +9,6 @@ package projectefinalprogramaciói;
  * @author maria
  */
 public class Vaixell {
-    
     int longitut = 2;
     int tocat = 0;
     

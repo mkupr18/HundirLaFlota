@@ -113,10 +113,10 @@ public class Tauler {
                     indexFila++;
                     indexColumna = 0;
                 } else { 
-                    char[] prueba = new char[2];
-                    prueba[0] = (char)(indexFila + 'A');
-                    prueba[1] = (char)(indexColumna + '1');
-                    if (llegirContingutCasella(prueba) == vaixell) {
+                    char[] casella = new char[2];
+                    casella[0] = (char)(indexFila + 'A');
+                    casella[1] = (char)(indexColumna + '1');
+                    if (llegirContingutCasella(casella) == vaixell) {
                         tauler[indexFila][indexColumna] = 'x';
                     }
                     indexColumna++;
