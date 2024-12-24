@@ -12,22 +12,20 @@ import java.io.IOException;
  */
 public class Jugador {
 
-    LT lt;
-    private char[][] matriu;
+    private LT lt;
 
     public Jugador() {
         lt = new LT();
-        matriu = new char[10][10];
     }
 
     public char[] disparar() {
         System.out.print("Introdueix la coordenada on vols disparar: ");
         char[] liniaLlegida = lt.llegirLinia();
-        
-        if(liniaLlegida.length > 2) {
+
+        if (liniaLlegida.length > 2) {
             char[] novaLinia = new char[2];
             novaLinia[0] = liniaLlegida[0];
-            novaLinia[1] = String.valueOf(new char[] {liniaLlegida[1], liniaLlegida[2]}).charAt(0);
+            novaLinia[1] = String.valueOf(new char[]{liniaLlegida[1], liniaLlegida[2]}).charAt(0);
             return novaLinia;
         }
         return liniaLlegida;
@@ -44,8 +42,8 @@ public class Jugador {
             System.out.println("Error: ja has disparat aquí");
         }
     }
-    
+
     public boolean totsVaixellsEnfonsats(Tauler tauler) {
-        return tauler.totsVaixellsEnfonsate();
+        return tauler.totsVaixellsEnfonsat();
     }
 }

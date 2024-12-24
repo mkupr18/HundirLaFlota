@@ -4,100 +4,75 @@
  */
 package projectefinalprogramaciói;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  *
  * @author maria
  */
 public class FitxerTaulerLectura {
-    Random ra = new Random();
-    Vaixell[] vaixells;
+
+    //atributos
     private FileReader fr;
-    private Tauler tauler;
-    private int nombreVaixellsEnfonsats;
-    private int random = generateNumber();
-    
-    public FitxerTaulerLectura() throws FileNotFoundException {
-        fr = new FileReader("10-10-5-4-3-3-2/" + 7 + ".txt");
-    }
-    
-    private Vaixell[] inicialitzarVaixells() {
-        Vaixell vaixell[] = new Vaixell[5];
-        vaixell[0] = new Vaixell(5);
-        vaixell[1] = new Vaixell(4);
-        vaixell[2] = new Vaixell(3);
-        vaixell[3] = new Vaixell(3);
-        vaixell[4] = new Vaixell(2);
+    private BufferedReader br;
+    private int car;
 
-        return vaixell;
+    //constructor
+    public FitxerTaulerLectura(String path) throws FileNotFoundException {
+        fr = new FileReader(path);
+        br = new BufferedReader(fr);
     }
-    
-    public char llegirContingutCasella(char[] casella) {
-        int fila = casella[0] - 'A';
-        int columna = casella[1] - '1';
+
+    public Casella[][] llegirTauler(int mida) throws IOException {
+        Casella[][] caselles = new Casella[mida][mida];
         
-        try {
-            int indexFila = 0;
-            int indexColumna = 0;
-            int valor;
+        for (int i = 0; i < mida; i++) {
+            String linia = br.readLine();
+            if (linia == null) {
+                System.out.println("El fitxer no te suficients linies "
+                        + "pel tauler");
+            }
 
-            while ((valor = fr.read()) != -1) {
-                if (indexFila == fila && indexColumna == columna) {
-                    return (char) valor;
+            char[] caracters = linia.toCharArray();
+            
+            for (int j = 0; j < mida; j++) {
+                if (j >= linia.length()) {
+                    System.out.println("La linia no té suficients caràcters");
                 }
-
-                if (valor == '\n' || valor == '\r') {
-                    indexFila++;
-                    indexColumna = 0;
-                } else {
-                    indexColumna++;
+                
+                char simbol = caracters[j];
+                caselles[i][j] = new Casella(i,j);
+                caselles[i][j].setEstat(simbol);
+                
+                if (simbol != '-') {
+                    caselles[i][j].setOcupat(true);
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Error al llegir l'arxiu: " + e.getMessage());
         }
-        return '\0';
+        return caselles;
     }
-    
-    //Mètode que donat un vaixell pugui treure sa fila i sa columna on marcaré després al tauler una 'x'
-    public void marcarVaixellEnfonsat(char vaixell, Tauler tauler) throws FileNotFoundException, IOException {
-        nombreVaixellsEnfonsats++; //Incrementam el comptador de vaixells enfonsats
-        
-        try {
-            FileReader fr = new FileReader("10-10-5-4-3-3-2/" + 7 + ".txt");
-            int indexFila = 0;
-            int indexColumna = 0;
-            int valor;
-            
-            while ((valor = fr.read()) != -1) {
-                if (valor == '\n') {
-                    indexFila++;
-                    indexColumna = 0;
-                } else { 
-                    char[] casella = new char[2];
-                    casella[0] = (char)(indexFila + 'A');
-                    casella[1] = (char)(indexColumna + '1');
-                    if (llegirContingutCasella(casella) == vaixell) {
-                        tauler.tauler[indexFila][indexColumna] = 'x';
-                    }
-                    indexColumna++;
-                    }
-                }
-            } catch (IOException e) {
-            System.out.println("Error al llegir l'arxiu: " + e.getMessage());
-        }
-    }
-    
-    public int generateNumber() {
-        int num = ra.nextInt(99) + 1; //Elegeix un nombre aleatori entre el 0 i el 99
-        return num;
-    }
-    
-    public boolean totsVaixellsEnfonsate() {
-        return nombreVaixellsEnfonsats == vaixells.length;
+//    public Paraula leerPAl() throws IOException{
+//        Paraula aux = new Paraula();
+//        car = br.read();
+//        saltarBlancosYOtros();
+//        while(car != -1 && car >= 33){ //-1 EOF y 33 char "validos"
+//            aux.anadirChar((char)car);
+//            car = br.read();
+//        }
+//        return aux;
+//    }
+//    
+//    private void saltarBlancosYOtros() throws IOException{
+//        while(car != -1 && car < 33){ //32 es blanco
+//            car = br.read();
+//        }
+//    }
+
+    public void cerrar() throws IOException {
+        br.close();
+        fr.close();
     }
 }
