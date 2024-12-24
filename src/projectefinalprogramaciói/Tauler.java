@@ -4,11 +4,6 @@
  */
 package projectefinalprogramaciói;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Random;
-
 /**
  *
  * @author maria
@@ -74,7 +69,7 @@ public class Tauler {
         System.out.println();
     }
     
-    public boolean disparar(int fila, int columna) {
+    public boolean dispararTauler(int fila, int columna) {
         Casella casella = caselles[fila][columna];
         
         if(!casella.esDisparable()) {
@@ -83,6 +78,7 @@ public class Tauler {
         
         if (casella.isOcupat()) {
             casella.actualitzarEstat('t');
+            actualitzarEnfonsament();
             return true;
         } else  {
             casella.actualitzarEstat('a');
@@ -90,7 +86,18 @@ public class Tauler {
         }
     }
     
-    public boolean totsVaixellsEnfonsats() {
+    public void actualitzarEnfonsament() {
+        for (Vaixell vaixell : vaixells) {
+            if (!vaixell.isEnfonsat() && vaixell.comprovarEnfonsat()) {
+                // Si el barco está hundido, actualizamos sus casillas
+                for (Casella casella : vaixell.getCaselles()) {
+                    casella.setEstat('x'); // Marcar como hundido
+                }
+            }
+        }
+    }
+    
+    public boolean totsVaixellsEnfonsatsTauler() {
         for (Vaixell vaixell : vaixells) {
             if (!vaixell.comprovarEnfonsat()) {
                 return false;

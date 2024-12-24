@@ -13,9 +13,8 @@ import java.io.IOException;
  */
 public class Main {
     LT lt = new LT();
-    
     char[] nom;
-    
+        
     public static void main(String[] args) throws FileNotFoundException, IOException {
         Main c = new Main();
         c.metodePrincipal();
@@ -79,6 +78,22 @@ public class Main {
         }
     }
     
+    public void jugarTotSol() {
+        int mida = 10;
+        int[] distribucioVaixells = {5, 4, 3, 3, 2};
+        
+        System.out.println("***********************************************************");
+        System.out.println("PARTIDA EN SOLITARI");
+        System.out.println("***********************************************************");
+        
+        System.out.println("Introdueix el teu nom: ");
+        nom = lt.llegirLinia();
+        
+        Jugador jugador = new Jugador(nom, mida, distribucioVaixells);
+        
+        
+    }
+    
     public void menuRegistre() {
         System.out.println("***********************************************************");
         System.out.println("REGISTRE");
@@ -110,14 +125,6 @@ public class Main {
         System.out.println("Fins aviat!");
     }
     
-    public void jugarTotSol() {
-        System.out.println("***********************************************************");
-        System.out.println("PARTIDA EN SOLITARI");
-        System.out.println("***********************************************************");
-        
-        
-    }
-    
     private void jugarContraUnAltre() {
         System.out.println("***********************************************************");
         System.out.println("PARTIDA DE DOS JUGADORS");
@@ -145,6 +152,11 @@ public class Main {
     
     
     private void metodePrincipal() throws FileNotFoundException, IOException {
+        
+        while(true) {
+            menuPrincipal();
+        }
+        
 //        Jugador jugador = new Jugador();
 //        JugadorSolitari solitari = new JugadorSolitari();
 //        LT lt = new LT();

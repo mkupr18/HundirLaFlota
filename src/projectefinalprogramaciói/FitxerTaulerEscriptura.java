@@ -23,16 +23,25 @@ public class FitxerTaulerEscriptura {
         bw = new BufferedWriter(fw);
     }
     
-    //mètode que escriu un String
-    public void escriureContacte(String p1, String p2, String p3, String p4)
-            throws IOException {
-        bw.write(p1 + "#" + p2 + "#" + p3 + "#" + p4 + " \n");
+    public void escriureTauler(Casella[][] caselles) throws IOException {
+        for (Casella[] fila : caselles) {
+            for (Casella casella : fila) {
+                bw.write(casella.getEstat()); // Escribir estado de cada casilla
+            }
+            bw.newLine(); // Salto de línea al final de cada fila
+        }
     }
     
-    //mètode que escriu una paraula
-    public void escriureParaula(Paraula p) throws IOException {
-        bw.write(p.toString());
-    }
+//    //mètode que escriu un String
+//    public void escriureContacte(String p1, String p2, String p3, String p4)
+//            throws IOException {
+//        bw.write(p1 + "#" + p2 + "#" + p3 + "#" + p4 + " \n");
+//    }
+//    
+//    //mètode que escriu una paraula
+//    public void escriureParaula(Paraula p) throws IOException {
+//        bw.write(p.toString());
+//    }
 
     public void tancar() throws IOException {
         bw.close();
